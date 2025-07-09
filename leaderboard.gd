@@ -156,8 +156,8 @@ func _on_score_submitted(result):
 	_load_leaderboard()  # Refresh the leaderboard
 
 func _on_back_button_pressed():
-	"""Return to the game scene"""
-	get_tree().change_scene_to_file("res://game.tscn")
+	"""Return to the main menu"""
+	get_tree().change_scene_to_file("res://main_menu.tscn")
 
 func set_game_scene(scene: Node2D):
 	"""Set reference to the game scene for score access"""

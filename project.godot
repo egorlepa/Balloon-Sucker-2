@@ -10,14 +10,15 @@ config_version=5
 
 [application]
 
-config/name="TestProject"
-run/main_scene="res://game.tscn"
+config/name="Balloon Sucker 2"
+run/main_scene="res://main_menu.tscn"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
 PlayFabManager="*res://addons/godot-playfab/PlayFabManager.gd"
+GlobalData="*res://global_data.gd"
 
 [display]
 

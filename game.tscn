@@ -22,6 +22,23 @@ text = "Score: 0"
 theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 
+[node name="LivesLabel" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 70.0
+offset_right = 200.0
+offset_bottom = 110.0
+text = "Lives: 3"
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(1, 0.5, 0.5, 1)
+
+[node name="MenuButton" type="Button" parent="."]
+offset_left = 20.0
+offset_top = 120.0
+offset_right = 120.0
+offset_bottom = 160.0
+text = "Menu"
+theme_override_font_sizes/font_size = 18
+
 [node name="LeaderboardButton" type="Button" parent="."]
 offset_left = 1080.0
 offset_top = 20.0
@@ -38,6 +55,79 @@ offset_bottom = 110.0
 text = "Submit Score"
 theme_override_font_sizes/font_size = 18
 
+[node name="PauseMenu" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Overlay" type="ColorRect" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="CenterContainer" type="CenterContainer" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/CenterContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(300, 400)
+
+[node name="PauseTitle" type="Label" parent="PauseMenu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "PAUSED"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 42
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="HSeparator" type="HSeparator" parent="PauseMenu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ButtonContainer" type="VBoxContainer" parent="PauseMenu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ResumeButton" type="Button" parent="PauseMenu/CenterContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "RESUME"
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="RestartButton" type="Button" parent="PauseMenu/CenterContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "RESTART"
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="MainMenuButton" type="Button" parent="PauseMenu/CenterContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "MAIN MENU"
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="HintLabel" type="Label" parent="PauseMenu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Press ESC to pause/resume"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="pressed" from="MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
 [connection signal="pressed" from="SubmitScoreButton" to="." method="_on_submit_score_button_pressed"]
+[connection signal="pressed" from="PauseMenu/CenterContainer/VBoxContainer/ButtonContainer/ResumeButton" to="." method="_on_pause_resume_pressed"]
+[connection signal="pressed" from="PauseMenu/CenterContainer/VBoxContainer/ButtonContainer/RestartButton" to="." method="_on_pause_restart_pressed"]
+[connection signal="pressed" from="PauseMenu/CenterContainer/VBoxContainer/ButtonContainer/MainMenuButton" to="." method="_on_pause_menu_pressed"]

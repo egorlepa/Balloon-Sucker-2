@@ -1,0 +1,106 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8t4x6mp2hg9v"]
+
+[ext_resource type="Script" path="res://game_over.gd" id="1_game_over"]
+[ext_resource type="Texture2D" uid="uid://cn8n6xs6v8b3p" path="res://assets/background.png" id="2_background"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_game_over")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+texture = ExtResource("2_background")
+
+[node name="Overlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(400, 500)
+
+[node name="GameOverTitle" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "GAME OVER"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 56
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScoreContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="FinalScoreLabel" type="Label" parent="CenterContainer/VBoxContainer/ScoreContainer"]
+layout_mode = 2
+text = "Final Score: 0"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="HighScoreLabel" type="Label" parent="CenterContainer/VBoxContainer/ScoreContainer"]
+layout_mode = 2
+text = "High Score: 0"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(1, 1, 0.5, 1)
+
+[node name="NewHighScoreLabel" type="Label" parent="CenterContainer/VBoxContainer/ScoreContainer"]
+layout_mode = 2
+text = "NEW HIGH SCORE!"
+horizontal_alignment = 1
+visible = false
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+
+[node name="HSeparator2" type="HSeparator" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ButtonContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PlayAgainButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "PLAY AGAIN"
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="MainMenuButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "MAIN MENU"
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="LeaderboardButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "LEADERBOARD"
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonContainer/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"] 

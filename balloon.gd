@@ -2,12 +2,15 @@ extends Node2D
 
 # Signal emitted when balloon is successfully popped
 signal balloon_popped
+# Signal emitted when balloon escapes off the screen
+signal balloon_escaped
 
 @export var speed: float = 50.0
 @export var shrink_rate: float = 0.5
 var is_over = false
 var is_sucking = false
 var initial_scale: Vector2
+var has_escaped = false
 
 @onready var sprite = $Sprite2D
 @onready var suck = $Suck
@@ -17,6 +20,13 @@ func _ready():
 
 func _process(delta):
 	position.y -= speed * delta
+	
+	# Check if balloon has escaped off the top of the screen
+	if position.y < -100 and not has_escaped:
+		has_escaped = true
+		emit_signal("balloon_escaped")
+		queue_free()
+		return
 
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and is_over:
 		if is_sucking == false:
