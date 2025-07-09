@@ -1,5 +1,8 @@
 extends Node2D
 
+# Signal emitted when balloon is successfully popped
+signal balloon_popped
+
 @export var speed: float = 50.0
 @export var shrink_rate: float = 0.5
 var is_over = false
@@ -25,8 +28,10 @@ func _process(delta):
 		var scale_ratio_x = sprite.scale.x / initial_scale.x
 		var scale_ratio_y = sprite.scale.y / initial_scale.y
 
-		# Destroy if it's shrunk to 10% or less
+		# Destroy if it's shrunk to 25% or less
 		if scale_ratio_x <= 0.25 and scale_ratio_y <= 0.25:
+			# Emit signal before destroying
+			emit_signal("balloon_popped")
 			queue_free()
 	else:
 		is_sucking = false

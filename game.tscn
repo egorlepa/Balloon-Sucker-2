@@ -13,4 +13,31 @@ texture = ExtResource("2_e2o6t")
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 5.0
 
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 60.0
+text = "Score: 0"
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="LeaderboardButton" type="Button" parent="."]
+offset_left = 1080.0
+offset_top = 20.0
+offset_right = 1240.0
+offset_bottom = 60.0
+text = "Leaderboard"
+theme_override_font_sizes/font_size = 18
+
+[node name="SubmitScoreButton" type="Button" parent="."]
+offset_left = 1080.0
+offset_top = 70.0
+offset_right = 1240.0
+offset_bottom = 110.0
+text = "Submit Score"
+theme_override_font_sizes/font_size = 18
+
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="pressed" from="LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
+[connection signal="pressed" from="SubmitScoreButton" to="." method="_on_submit_score_button_pressed"]
