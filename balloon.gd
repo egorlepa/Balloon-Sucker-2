@@ -1,0 +1,39 @@
+extends Node2D
+
+@export var speed: float = 50.0
+@export var shrink_rate: float = 0.5
+var is_over = false
+var is_sucking = false
+var initial_scale: Vector2
+
+@onready var sprite = $Sprite2D
+@onready var suck = $Suck
+
+func _ready():
+	initial_scale = sprite.scale
+
+func _process(delta):
+	position.y -= speed * delta
+
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and is_over:
+		if is_sucking == false:
+			suck.play()
+		is_sucking = true
+		sprite.scale -= initial_scale * shrink_rate * delta
+
+		# Calculate normalized scale ratio
+		var scale_ratio_x = sprite.scale.x / initial_scale.x
+		var scale_ratio_y = sprite.scale.y / initial_scale.y
+
+		# Destroy if it's shrunk to 10% or less
+		if scale_ratio_x <= 0.25 and scale_ratio_y <= 0.25:
+			queue_free()
+	else:
+		is_sucking = false
+		suck.stop()
+
+func _on_area_2d_mouse_entered() -> void:
+	is_over = true
+
+func _on_area_2d_mouse_exited() -> void:
+	is_over = false

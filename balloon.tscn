@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://5mm867ihtl5l"]
+
+[ext_resource type="Texture2D" uid="uid://dddb5hfsa6s1d" path="res://assets/balloon.png" id="1_r345k"]
+[ext_resource type="Script" uid="uid://dvkiq0dkiwt4k" path="res://balloon.gd" id="2_4emby"]
+[ext_resource type="AudioStream" uid="uid://ig2murp535p1" path="res://assets/suck.mp3" id="3_4emby"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r345k"]
+radius = 42.0476
+
+[node name="Balloon" type="Node2D"]
+script = ExtResource("2_4emby")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 33)
+scale = Vector2(0.0683336, 0.0683336)
+texture = ExtResource("1_r345k")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_r345k")
+
+[node name="Suck" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_4emby")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
