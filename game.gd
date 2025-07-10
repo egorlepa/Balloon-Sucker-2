@@ -2,6 +2,8 @@ extends Node2D
 
 @onready var speed_label: Label = $DebugInfo/SpeedLabel
 @onready var spawn_interval_label: Label = $DebugInfo/SpawnIntervalLabel
+@onready var difficulty_label: Label = $DebugInfo/DifficultyLabel
+
 @onready var health_label: Label = $Health/Label
 @onready var score_label: Label = $ScoreLabel
 
@@ -28,21 +30,23 @@ func _ready() -> void:
 	balloon_timer.start(spawn_interval)
 	_spawn_balloon_batch()
 
+@export var difficulty_curve: Curve
 var difficulty := 0.0
 var max_difficulty_time := 300.0
 
 func _process(delta):
 	elapsed_time += delta
 
-	difficulty = clamp(elapsed_time / max_difficulty_time, 0.0, 1.0)
+	difficulty = difficulty_curve.sample(elapsed_time / max_difficulty_time)
+	difficulty_label.text = "Difficulty: %0.2f%%" % (difficulty*100)
 
 	speed = lerp(min_speed, max_speed, difficulty)
-	var new_interval = lerp(max_interval, min_interval, difficulty)
-
-	# Update labels and timer
 	speed_label.text = "Speed: %0.0f" % speed
-	spawn_interval_label.text = "Interval: %0.2f" % new_interval
-	balloon_timer.wait_time = new_interval
+		
+	spawn_interval = lerp(max_interval, min_interval, difficulty)
+	spawn_interval_label.text = "Interval: %0.2f" % spawn_interval
+	
+	balloon_timer.wait_time = spawn_interval
 
 var max_spawn_per_event := 10
 
