@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://cob40pnbjmg0a"]
+[gd_scene load_steps=7 format=3 uid="uid://cob40pnbjmg0a"]
 
 [ext_resource type="Script" uid="uid://cspbsbudsa0s7" path="res://game.gd" id="1_80nbo"]
 [ext_resource type="Texture2D" uid="uid://cn8n6xs6v8b3p" path="res://assets/background.png" id="2_e2o6t"]
+[ext_resource type="Texture2D" uid="uid://d1cne8wyx1kji" path="res://assets/heart.png" id="3_feb5d"]
+[ext_resource type="AudioStream" uid="uid://bp5awnhu2y5k6" path="res://assets/fart.mp3" id="4_fc0e3"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_e2o6t"]
+normal = Vector2(0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fc0e3"]
+font_size = 32
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_80nbo")
@@ -13,4 +21,48 @@ texture = ExtResource("2_e2o6t")
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 5.0
 
+[node name="DebugInfo" type="Node2D" parent="."]
+z_index = 10
+
+[node name="SpeedLabel" type="Label" parent="DebugInfo"]
+offset_right = 57.0
+offset_bottom = 23.0
+text = "sample"
+
+[node name="SpawnIntervalLabel" type="Label" parent="DebugInfo"]
+offset_top = 23.0
+offset_right = 57.0
+offset_bottom = 46.0
+text = "sample"
+
+[node name="DespawnBoundary" type="Area2D" parent="."]
+position = Vector2(0, -96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DespawnBoundary"]
+shape = SubResource("WorldBoundaryShape2D_e2o6t")
+
+[node name="Health" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Health"]
+z_index = 1
+position = Vector2(1231.45, 672.404)
+scale = Vector2(0.18927, 0.185556)
+texture = ExtResource("3_feb5d")
+
+[node name="Label" type="Label" parent="Health"]
+z_index = 1
+offset_left = 1159.0
+offset_top = 583.0
+offset_right = 1305.0
+offset_bottom = 758.0
+text = "10"
+label_settings = SubResource("LabelSettings_fc0e3")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Fart" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_fc0e3")
+
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="area_entered" from="DespawnBoundary" to="." method="_on_despawn_boundary_area_entered"]

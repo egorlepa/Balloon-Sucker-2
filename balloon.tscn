@@ -1,8 +1,39 @@
-[gd_scene load_steps=5 format=3 uid="uid://5mm867ihtl5l"]
+[gd_scene load_steps=11 format=3 uid="uid://5mm867ihtl5l"]
 
-[ext_resource type="Texture2D" uid="uid://dddb5hfsa6s1d" path="res://assets/balloon.png" id="1_r345k"]
+[ext_resource type="Texture2D" uid="uid://ba0mj2orjqffn" path="res://assets/red-balloon/1.png" id="2_1xemn"]
 [ext_resource type="Script" uid="uid://dvkiq0dkiwt4k" path="res://balloon.gd" id="2_4emby"]
-[ext_resource type="AudioStream" uid="uid://ig2murp535p1" path="res://assets/suck.mp3" id="3_4emby"]
+[ext_resource type="AudioStream" uid="uid://ctjkxj72vlt4b" path="res://assets/pop.wav" id="3_4emby"]
+[ext_resource type="Texture2D" uid="uid://i7xcitpjvfau" path="res://assets/red-balloon/2.png" id="3_788im"]
+[ext_resource type="Texture2D" uid="uid://dyhyx2ivi4m5n" path="res://assets/red-balloon/3.png" id="4_y35mm"]
+[ext_resource type="Texture2D" uid="uid://bbpuv38gmykyr" path="res://assets/red-balloon/4.png" id="5_8fc1f"]
+[ext_resource type="Texture2D" uid="uid://djhmpdgbbj047" path="res://assets/red-balloon/5.png" id="6_se17g"]
+[ext_resource type="Texture2D" uid="uid://bp6o07w2ay1gk" path="res://assets/red-balloon/6.png" id="7_gvu4f"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m3gh5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_1xemn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_788im")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_y35mm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8fc1f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_se17g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_gvu4f")
+}],
+"loop": false,
+"name": &"pop",
+"speed": 25.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r345k"]
 radius = 42.0476
@@ -10,19 +41,18 @@ radius = 42.0476
 [node name="Balloon" type="Node2D"]
 script = ExtResource("2_4emby")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, 33)
-scale = Vector2(0.0683336, 0.0683336)
-texture = ExtResource("1_r345k")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 7)
+scale = Vector2(0.266602, 0.266602)
+sprite_frames = SubResource("SpriteFrames_m3gh5")
+animation = &"pop"
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_r345k")
 
-[node name="Suck" type="AudioStreamPlayer" parent="."]
+[node name="Pop" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_4emby")
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
-[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

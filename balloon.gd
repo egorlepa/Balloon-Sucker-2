@@ -1,39 +1,24 @@
 extends Node2D
 
 @export var speed: float = 50.0
-@export var shrink_rate: float = 0.5
-var is_over = false
-var is_sucking = false
-var initial_scale: Vector2
-
 @onready var sprite = $Sprite2D
-@onready var suck = $Suck
-
-func _ready():
-	initial_scale = sprite.scale
 
 func _process(delta):
 	position.y -= speed * delta
 
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and is_over:
-		if is_sucking == false:
-			suck.play()
-		is_sucking = true
-		sprite.scale -= initial_scale * shrink_rate * delta
+func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		_pop()
 
-		# Calculate normalized scale ratio
-		var scale_ratio_x = sprite.scale.x / initial_scale.x
-		var scale_ratio_y = sprite.scale.y / initial_scale.y
-
-		# Destroy if it's shrunk to 10% or less
-		if scale_ratio_x <= 0.25 and scale_ratio_y <= 0.25:
-			queue_free()
-	else:
-		is_sucking = false
-		suck.stop()
-
-func _on_area_2d_mouse_entered() -> void:
-	is_over = true
-
-func _on_area_2d_mouse_exited() -> void:
-	is_over = false
+func _pop():
+	$Area2D/CollisionShape2D.disabled = true
+	$Pop.play()
+	$AnimatedSprite2D.play("pop")
+	
+	$Pop.finished.connect(func():
+		queue_free()
+	)
+	
+	$AnimatedSprite2D.animation_finished.connect(func():
+		$AnimatedSprite2D.visible = false
+	)
