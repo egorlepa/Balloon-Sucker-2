@@ -1,15 +1,26 @@
-[gd_scene load_steps=7 format=3 uid="uid://cob40pnbjmg0a"]
+[gd_scene load_steps=9 format=3 uid="uid://cob40pnbjmg0a"]
 
 [ext_resource type="Script" uid="uid://cspbsbudsa0s7" path="res://game.gd" id="1_80nbo"]
 [ext_resource type="Texture2D" uid="uid://cn8n6xs6v8b3p" path="res://assets/background.png" id="2_e2o6t"]
 [ext_resource type="Texture2D" uid="uid://d1cne8wyx1kji" path="res://assets/heart.png" id="3_feb5d"]
 [ext_resource type="AudioStream" uid="uid://bp5awnhu2y5k6" path="res://assets/fart.mp3" id="4_fc0e3"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_ryrav"]
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_e2o6t"]
 normal = Vector2(0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_fc0e3"]
 font_size = 32
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_7jktm"]
+font_size = 40
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_80nbo")
@@ -28,12 +39,14 @@ z_index = 10
 offset_right = 57.0
 offset_bottom = 23.0
 text = "sample"
+label_settings = SubResource("LabelSettings_ryrav")
 
 [node name="SpawnIntervalLabel" type="Label" parent="DebugInfo"]
 offset_top = 23.0
 offset_right = 57.0
 offset_bottom = 46.0
 text = "sample"
+label_settings = SubResource("LabelSettings_ryrav")
 
 [node name="DespawnBoundary" type="Area2D" parent="."]
 position = Vector2(0, -96)
@@ -63,6 +76,15 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Fart" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_fc0e3")
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = 1156.0
+offset_right = 1265.0
+offset_bottom = 50.0
+text = "0"
+label_settings = SubResource("LabelSettings_7jktm")
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="area_entered" from="DespawnBoundary" to="." method="_on_despawn_boundary_area_entered"]

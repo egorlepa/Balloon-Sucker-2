@@ -32,7 +32,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"pop",
-"speed": 25.0
+"speed": 50.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r345k"]
@@ -42,6 +42,7 @@ radius = 42.0476
 script = ExtResource("2_4emby")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 5
 position = Vector2(0, 7)
 scale = Vector2(0.266602, 0.266602)
 sprite_frames = SubResource("SpriteFrames_m3gh5")

@@ -3,6 +3,7 @@ extends Node2D
 @onready var speed_label: Label = $DebugInfo/SpeedLabel
 @onready var spawn_interval_label: Label = $DebugInfo/SpawnIntervalLabel
 @onready var health_label: Label = $Health/Label
+@onready var score_label: Label = $ScoreLabel
 
 @onready var balloon_timer: Timer = $SpawnTimer
 var elapsed_time := 0.0
@@ -18,9 +19,11 @@ var speed := min_speed
 var Balloon = preload("res://balloon.tscn")
 
 var health = 10
+var score = 0
 
 func _ready() -> void:
 	health_label.text = str(health)
+	score_label.text = str(score)
 	randomize()
 	balloon_timer.start(spawn_interval)
 	_spawn_balloon_batch()
@@ -46,6 +49,10 @@ var max_spawn_per_event := 10
 func _spawn_balloon_batch():
 	var b = Balloon.instantiate()
 	add_child(b)
+	b.popped.connect(func():
+		score += 1
+		score_label.text = str(score)	
+	)
 
 	var viewport_width = get_viewport().get_visible_rect().size.x
 	var viewport_height = get_viewport().get_visible_rect().size.y
