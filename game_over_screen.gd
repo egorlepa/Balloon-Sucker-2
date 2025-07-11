@@ -27,6 +27,9 @@ func _ready():
 	view_leaderboard_button.pressed.connect(_on_view_leaderboard_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
 	
+	# Allow processing when game is paused
+	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+	
 	# Hide initially
 	visible = false
 	
@@ -35,12 +38,14 @@ func _ready():
 
 ## Sets up the UI appearance
 func _setup_ui():
+	# Configure the UI to fill the screen
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	
 	# Configure the panel
 	var panel = $Panel
 	panel.custom_minimum_size = Vector2(800, 600)
 	
-	# Center the panel
-	set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	# Center the panel properly
 	panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	
 	# Hide leaderboard initially

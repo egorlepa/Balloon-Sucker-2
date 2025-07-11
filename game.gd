@@ -210,10 +210,15 @@ func _input(event):
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_L and not game_over:
 			if leaderboard_manager:
+				# Pause the game
+				get_tree().paused = true
+				
 				# Create a temporary leaderboard UI for in-game viewing
 				var temp_leaderboard = preload("res://leaderboard_ui.tscn").instantiate()
 				add_child(temp_leaderboard)
 				temp_leaderboard.show_leaderboard(leaderboard_manager)
 				temp_leaderboard.closed.connect(func():
+					# Resume the game when leaderboard is closed
+					get_tree().paused = false
 					temp_leaderboard.queue_free()
 				)

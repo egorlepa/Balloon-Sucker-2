@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8k3m9n2p5q7r"]
+[gd_scene load_steps=4 format=3 uid="uid://c8k3nan2p5q7r"]
 
 [ext_resource type="Script" path="res://game_over_screen.gd" id="1_1"]
 [ext_resource type="PackedScene" uid="uid://b7jh8k2l9m5n0" path="res://leaderboard_ui.tscn" id="2_1"]
@@ -15,6 +15,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("1_1")
 
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.7)
+
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -26,6 +33,7 @@ offset_left = -400.0
 offset_top = -300.0
 offset_right = 400.0
 offset_bottom = 300.0
+z_index = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 layout_mode = 1
