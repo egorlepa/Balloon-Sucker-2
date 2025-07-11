@@ -1,0 +1,85 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8k3m9n2p5q7r"]
+
+[ext_resource type="Script" path="res://game_over_screen.gd" id="1_1"]
+[ext_resource type="PackedScene" uid="uid://b7jh8k2l9m5n0" path="res://leaderboard_ui.tscn" id="2_1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1"]
+font_size = 32
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="GameOverScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_1")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -300.0
+offset_right = 400.0
+offset_bottom = 300.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 30.0
+offset_right = -30.0
+offset_bottom = -30.0
+
+[node name="GameOverLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "💥 GAME OVER 💥"
+label_settings = SubResource("LabelSettings_1")
+horizontal_alignment = 1
+
+[node name="FinalScoreLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Final Score: 0"
+horizontal_alignment = 1
+
+[node name="PersonalBestLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "New Personal Best!"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="LeaderboardContainer" type="VBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LeaderboardUI" parent="Panel/VBoxContainer/LeaderboardContainer" instance=ExtResource("2_1")]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ButtonContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="RestartButton" type="Button" parent="Panel/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Restart (R)"
+
+[node name="ViewLeaderboardButton" type="Button" parent="Panel/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "View Leaderboard"
+
+[node name="QuitButton" type="Button" parent="Panel/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quit" 

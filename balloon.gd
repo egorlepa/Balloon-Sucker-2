@@ -14,15 +14,15 @@ func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) 
 
 func _pop():
 	emit_signal("popped")
-	
+
 	$Area2D/CollisionShape2D.disabled = true
 	$Pop.play()
 	$AnimatedSprite2D.play("pop")
-	
+
 	$Pop.finished.connect(func():
 		queue_free()
 	)
-	
+
 	$AnimatedSprite2D.animation_finished.connect(func():
 		$AnimatedSprite2D.visible = false
 	)
