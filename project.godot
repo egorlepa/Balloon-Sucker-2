@@ -35,7 +35,7 @@ version_control/autoload_on_startup=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/applovin_max/plugin.cfg", "res://addons/godot-playfab/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot-playfab/plugin.cfg")
 
 [rendering]
 
