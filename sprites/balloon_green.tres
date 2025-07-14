@@ -1,0 +1,34 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://dc0ni50opxal4"]
+
+[ext_resource type="Texture2D" uid="uid://cc8xe18aagtug" path="res://assets/green-balloon/1.png" id="1_awv5h"]
+[ext_resource type="Texture2D" uid="uid://sf3fimonhuwk" path="res://assets/green-balloon/2.png" id="2_2fw0q"]
+[ext_resource type="Texture2D" uid="uid://chj0et6w6s36e" path="res://assets/green-balloon/3.png" id="3_cmdmf"]
+[ext_resource type="Texture2D" uid="uid://n76yojbgjfwa" path="res://assets/green-balloon/4.png" id="4_k7owg"]
+[ext_resource type="Texture2D" uid="uid://b0xk6vn5b45sd" path="res://assets/green-balloon/5.png" id="5_3xtcm"]
+[ext_resource type="Texture2D" uid="uid://c4uxnyiq8kg4" path="res://assets/green-balloon/6.png" id="6_pqa1c"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_awv5h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_2fw0q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_cmdmf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_k7owg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3xtcm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_pqa1c")
+}],
+"loop": false,
+"name": &"pop",
+"speed": 50.0
+}]

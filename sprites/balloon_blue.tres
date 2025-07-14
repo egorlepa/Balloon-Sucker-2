@@ -1,0 +1,34 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://5b5g0c4028y3"]
+
+[ext_resource type="Texture2D" uid="uid://buikagm78mdbs" path="res://assets/blue-balloon/1.png" id="1_juuye"]
+[ext_resource type="Texture2D" uid="uid://cr8qqsqgv5hji" path="res://assets/blue-balloon/2.png" id="2_mvx05"]
+[ext_resource type="Texture2D" uid="uid://b7tqvaxgenp1j" path="res://assets/blue-balloon/3.png" id="3_4vs22"]
+[ext_resource type="Texture2D" uid="uid://dwaogb5to7cq2" path="res://assets/blue-balloon/4.png" id="4_n2abt"]
+[ext_resource type="Texture2D" uid="uid://duxb2ty1s5cch" path="res://assets/blue-balloon/5.png" id="5_s2lxh"]
+[ext_resource type="Texture2D" uid="uid://cvw3uwcnia8nf" path="res://assets/blue-balloon/6.png" id="6_nxmyx"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_juuye")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mvx05")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_4vs22")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_n2abt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_s2lxh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_nxmyx")
+}],
+"loop": false,
+"name": &"pop",
+"speed": 50.0
+}]

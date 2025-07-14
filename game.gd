@@ -14,8 +14,8 @@ var min_interval :=  0.1
 var max_interval :=  1.0
 var spawn_interval := max_interval
 
-var min_speed := 200.0
-var max_speed := 500.0
+var min_speed := 100.0
+var max_speed := 200.0
 var speed := min_speed
 
 var Balloon = preload("res://balloon.tscn")
@@ -23,12 +23,18 @@ var Balloon = preload("res://balloon.tscn")
 var health = 10
 var score = 0
 
+var wind_strength := 0.0
+var max_wind_strength := 150.0
+var wind_change_interval := 2.0
+var wind_timer := 0.0
+
 func _ready() -> void:
 	health_label.text = str(health)
 	score_label.text = str(score)
 	randomize()
 	balloon_timer.start(spawn_interval)
 	_spawn_balloon_batch()
+	_change_wind()
 
 @export var difficulty_curve: Curve
 var difficulty := 0.0
@@ -36,6 +42,10 @@ var max_difficulty_time := 300.0
 
 func _process(delta):
 	elapsed_time += delta
+	wind_timer += delta
+	if wind_timer >= wind_change_interval:
+		wind_timer = 0.0
+		_change_wind()
 
 	difficulty = difficulty_curve.sample(elapsed_time / max_difficulty_time)
 	difficulty_label.text = "Difficulty: %0.2f%%" % (difficulty*100)
@@ -48,10 +58,13 @@ func _process(delta):
 	
 	balloon_timer.wait_time = spawn_interval
 
-var max_spawn_per_event := 10
+func _change_wind():
+	wind_strength = randf_range(-max_wind_strength, max_wind_strength)
+	_notify_wind_change()
 
 func _spawn_balloon_batch():
 	var b = Balloon.instantiate()
+	b.on_wind_changed(wind_strength)
 	add_child(b)
 	b.popped.connect(func():
 		score += 1
@@ -68,14 +81,20 @@ func _spawn_balloon_batch():
 
 	b.position = Vector2(random_x, viewport_height + scaled_height / 2)
 
-	# Apply jitter to speed
+	## Apply jitter to speed
 	var jitter = randf_range(0.75, 1.25)
-	b.speed = speed * jitter
+	b.lift_force = speed * jitter
+	b.wind_scale = randf_range(0.75, 1.25)
+
+func _notify_wind_change():
+	for b in get_tree().get_nodes_in_group("balloons"):
+		if b.has_method("on_wind_changed"):
+			b.on_wind_changed(wind_strength)
 
 func _on_spawn_timer_timeout() -> void:
 	_spawn_balloon_batch()
 
-func _on_despawn_boundary_area_entered(area: Area2D) -> void:
+func _on_despawn_boundary_body_entered(body: Node2D) -> void:
 	health -= 1
 	health_label.text = str(health)
 	
@@ -86,6 +105,6 @@ func _on_despawn_boundary_area_entered(area: Area2D) -> void:
 		fart.queue_free()
 	)
 	
-	area.get_parent().queue_free()
+	body.queue_free()
 	if health == 0:
 		get_tree().paused = true

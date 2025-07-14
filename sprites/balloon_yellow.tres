@@ -1,0 +1,34 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://cjh5mto6efhni"]
+
+[ext_resource type="Texture2D" uid="uid://buy0jn1roxuop" path="res://assets/yellow-balloon/1.png" id="1_3cm50"]
+[ext_resource type="Texture2D" uid="uid://mklajhyergwt" path="res://assets/yellow-balloon/2.png" id="2_kiaab"]
+[ext_resource type="Texture2D" uid="uid://6x3n0vyj385x" path="res://assets/yellow-balloon/3.png" id="3_rh4f2"]
+[ext_resource type="Texture2D" uid="uid://dgpv5gul15vhy" path="res://assets/yellow-balloon/4.png" id="4_1e5bx"]
+[ext_resource type="Texture2D" uid="uid://od3vicead8km" path="res://assets/yellow-balloon/5.png" id="5_pmscg"]
+[ext_resource type="Texture2D" uid="uid://d2x52lptnlnmr" path="res://assets/yellow-balloon/6.png" id="6_3ua0m"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3cm50")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_kiaab")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_rh4f2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_1e5bx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_pmscg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_3ua0m")
+}],
+"loop": false,
+"name": &"pop",
+"speed": 50.0
+}]

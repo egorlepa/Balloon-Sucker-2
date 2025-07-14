@@ -1,0 +1,34 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://gjksqpmcml4m"]
+
+[ext_resource type="Texture2D" uid="uid://cur4kg8m0q0g6" path="res://assets/orange-balloon/1.png" id="1_eh43k"]
+[ext_resource type="Texture2D" uid="uid://vyx7ftmq80pf" path="res://assets/orange-balloon/2.png" id="2_qaqgi"]
+[ext_resource type="Texture2D" uid="uid://b78wt6w3ua0cv" path="res://assets/orange-balloon/3.png" id="3_viaid"]
+[ext_resource type="Texture2D" uid="uid://cq6jy0wwkdgnm" path="res://assets/orange-balloon/4.png" id="4_m261j"]
+[ext_resource type="Texture2D" uid="uid://b1dn2cdlq4put" path="res://assets/orange-balloon/5.png" id="5_3833k"]
+[ext_resource type="Texture2D" uid="uid://c6rkagdwdsfm8" path="res://assets/orange-balloon/6.png" id="6_tqru8"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_eh43k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_qaqgi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_viaid")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_m261j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3833k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_tqru8")
+}],
+"loop": false,
+"name": &"pop",
+"speed": 50.0
+}]
