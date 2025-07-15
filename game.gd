@@ -129,18 +129,16 @@ func _on_despawn_boundary_body_entered(body: Node2D) -> void:
 # Pause menu functions
 func _on_pause_button_pressed():
 	"""Handle pause button press."""
+	print("Pause button pressed!")
 	GameManager.pause_game()
+	print("GameManager.pause_game() called")
 
 func _on_game_paused():
 	"""Handle game paused signal - show pause menu."""
+	print("Game paused signal received!")
 	pause_menu.visible = true
+	print("Pause menu set to visible")
 
 func _on_game_resumed():
 	"""Handle game resumed signal - hide pause menu."""
 	pause_menu.visible = false
-
-func _input(event):
-	"""Handle input events."""
-	if event.is_action_pressed("ui_cancel"):
-		# ESC key toggles pause
-		GameManager.toggle_pause()
