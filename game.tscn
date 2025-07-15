@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://cob40pnbjmg0a"]
+[gd_scene load_steps=13 format=3 uid="uid://cob40pnbjmg0a"]
 
 [ext_resource type="Script" uid="uid://cspbsbudsa0s7" path="res://game.gd" id="1_80nbo"]
 [ext_resource type="Texture2D" uid="uid://cn8n6xs6v8b3p" path="res://assets/background.png" id="2_e2o6t"]
 [ext_resource type="PhysicsMaterial" uid="uid://c0ysapw4p3ide" path="res://materials/bouncy_phys_mat.tres" id="3_7jktm"]
 [ext_resource type="Texture2D" uid="uid://d1cne8wyx1kji" path="res://assets/heart.png" id="3_feb5d"]
 [ext_resource type="AudioStream" uid="uid://bp5awnhu2y5k6" path="res://assets/fart.mp3" id="4_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://wgpmj4y3ljen" path="res://pause_menu.tscn" id="7_pause"]
 
 [sub_resource type="Curve" id="Curve_fc0e3"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.252778, 0.497824), 0.0, 0.0, 0, 0, Vector2(0.5, 0.646355), 0.0, 0.0, 0, 0, Vector2(0.747222, 0.809032), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -117,6 +118,18 @@ text = "0"
 label_settings = SubResource("LabelSettings_7jktm")
 horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="PauseMenu" parent="." instance=ExtResource("7_pause")]
+z_index = 100
+
+[node name="PauseButton" type="Button" parent="."]
+process_mode = 2
+z_index = 10
+offset_left = 1180.0
+offset_top = 60.0
+offset_right = 1260.0
+offset_bottom = 100.0
+text = "Pause"
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="area_entered" from="DespawnBoundary" to="." method="_on_despawn_boundary_area_entered"]

@@ -15,6 +15,19 @@ Since this is a Godot project, development is primarily done through the Godot e
 - **Export Build**: Use Godot's export presets for target platforms
 - **Scene Testing**: F6 to run current scene in Godot editor
 
+## IMPORTANT: Missing Scene Files
+
+**The game will not run until the menu scene files are created.** Currently only `balloon.tscn` and `game.tscn` exist, but the menu system requires these additional scene files:
+
+- `main_menu.tscn` (required - set as main scene in project.godot)
+- `settings_menu.tscn`
+- `game_over.tscn`
+- `pause_menu.tscn`
+- `high_scores.tscn`
+- `instructions.tscn`
+
+**To create these scenes:** Follow the step-by-step instructions in `MENU_SETUP_GUIDE.md`. All the scripts (.gd files) are ready and will work once the scene structures are created in the Godot editor.
+
 ## Architecture Overview
 
 ### Core System Architecture

@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3 uid="uid://17bjt51c1yjp"]
+
+[ext_resource type="Script" path="res://instructions.gd" id="1_instructions"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1"]
+font_size = 36
+
+[node name="Instructions" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_instructions")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -250.0
+offset_right = 300.0
+offset_bottom = 250.0
+theme_override_constants/separation = 20
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+text = "Instructions"
+label_settings = SubResource("LabelSettings_1")
+horizontal_alignment = 1
+
+[node name="InstructionsText" type="RichTextLabel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(600, 350)
+bbcode_enabled = true
+text = "[center][b]How to Play Balloon Warfare[/b][/center]
+
+[color=yellow]Objective:[/color]
+Pop as many balloons as possible before they escape!
+
+[color=yellow]Controls:[/color]
+• Click on balloons to pop them
+• Press ESC to pause the game
+• Use the mouse to navigate menus
+
+[color=yellow]Gameplay:[/color]
+• Balloons rise from the bottom of the screen
+• Each balloon that escapes costs you 1 health
+• You start with 10 health points
+• Game ends when health reaches 0
+
+[color=yellow]Scoring:[/color]
+• Each popped balloon gives you 1 point
+• Try to beat your high score!
+
+[color=yellow]Tips:[/color]
+• Watch out for wind effects on balloons
+• Game gets harder over time
+• Focus on balloons closest to escaping"
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+text = "Back"

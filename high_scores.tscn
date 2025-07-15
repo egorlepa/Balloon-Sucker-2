@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddpe5rfqih88b"]
+
+[ext_resource type="Script" path="res://high_scores.gd" id="1_highscores"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1"]
+font_size = 36
+
+[node name="HighScores" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_highscores")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -250.0
+offset_right = 200.0
+offset_bottom = 250.0
+theme_override_constants/separation = 20
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+text = "High Scores"
+label_settings = SubResource("LabelSettings_1")
+horizontal_alignment = 1
+
+[node name="ScoresContainer" type="VBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 300)
+theme_override_constants/separation = 10
+
+[node name="ClearScoresButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+text = "Clear Scores"
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+text = "Back"
