@@ -3,11 +3,15 @@ extends Node2D
 @onready var speed_label: Label = $DebugInfo/SpeedLabel
 @onready var spawn_interval_label: Label = $DebugInfo/SpawnIntervalLabel
 @onready var difficulty_label: Label = $DebugInfo/DifficultyLabel
+@onready var debug_info: Control = $DebugInfo
 
 @onready var health_label: Label = $Health/Label
 @onready var score_label: Label = $ScoreLabel
 
 @onready var balloon_timer: Timer = $SpawnTimer
+@onready var pause_menu: Control = $PauseMenu
+@onready var pause_button: Button = $PauseButton
+
 var elapsed_time := 0.0
 
 var min_interval :=  0.1
@@ -35,6 +39,17 @@ func _ready() -> void:
 	balloon_timer.start(spawn_interval)
 	_spawn_balloon_batch()
 	_change_wind()
+	
+	# Set up pause functionality
+	pause_menu.visible = false
+	pause_button.pressed.connect(_on_pause_button_pressed)
+	
+	# Connect to GameManager signals
+	GameManager.game_paused.connect(_on_game_paused)
+	GameManager.game_resumed.connect(_on_game_resumed)
+	
+	# Update debug info visibility
+	debug_info.visible = GameManager.show_debug_info
 
 @export var difficulty_curve: Curve
 var difficulty := 0.0
@@ -100,11 +115,31 @@ func _on_despawn_boundary_body_entered(body: Node2D) -> void:
 	
 	var fart := $Fart.duplicate()
 	add_child(fart)
-	fart.play(0.2)
+	GameManager.play_sound_effect(fart, 0.2)
 	fart.finished.connect(func():
 		fart.queue_free()
 	)
 	
 	body.queue_free()
 	if health == 0:
-		get_tree().paused = true
+		# Game over - pass final score to GameManager
+		GameManager.set_game_over(score)
+
+# Pause menu functions
+func _on_pause_button_pressed():
+	"""Handle pause button press."""
+	GameManager.pause_game()
+
+func _on_game_paused():
+	"""Handle game paused signal - show pause menu."""
+	pause_menu.visible = true
+
+func _on_game_resumed():
+	"""Handle game resumed signal - hide pause menu."""
+	pause_menu.visible = false
+
+func _input(event):
+	"""Handle input events."""
+	if event.is_action_pressed("ui_cancel"):
+		# ESC key toggles pause
+		GameManager.toggle_pause()
