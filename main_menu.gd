@@ -4,9 +4,7 @@ extends Control
 # Handles navigation between different menu screens
 
 @onready var play_button: Button = $VBoxContainer/PlayButton
-@onready var settings_button: Button = $VBoxContainer/SettingsButton
 @onready var high_scores_button: Button = $VBoxContainer/HighScoresButton
-@onready var instructions_button: Button = $VBoxContainer/InstructionsButton
 @onready var quit_button: Button = $VBoxContainer/QuitButton
 
 @onready var title_label: Label = $TitleLabel
@@ -16,9 +14,7 @@ func _ready():
 	"""Initialize the main menu."""
 	# Connect button signals
 	play_button.pressed.connect(_on_play_pressed)
-	settings_button.pressed.connect(_on_settings_pressed)
 	high_scores_button.pressed.connect(_on_high_scores_pressed)
-	instructions_button.pressed.connect(_on_instructions_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
 	
 	# Set up the UI
@@ -37,17 +33,9 @@ func _on_play_pressed():
 	"""Handle play button press - start new game."""
 	GameManager.start_new_game()
 
-func _on_settings_pressed():
-	"""Handle settings button press - open settings menu."""
-	GameManager.change_scene("res://settings_menu.tscn")
-
 func _on_high_scores_pressed():
 	"""Handle high scores button press - show high scores."""
 	GameManager.change_scene("res://high_scores.tscn")
-
-func _on_instructions_pressed():
-	"""Handle instructions button press - show how to play."""
-	GameManager.change_scene("res://instructions.tscn")
 
 func _on_quit_pressed():
 	"""Handle quit button press - exit game."""

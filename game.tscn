@@ -58,7 +58,7 @@ shape = SubResource("RectangleShape2D_fc0e3")
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 5.0
 
-[node name="DebugInfo" type="Node2D" parent="."]
+[node name="DebugInfo" type="Control" parent="."]
 z_index = 10
 
 [node name="SpeedLabel" type="Label" parent="DebugInfo"]

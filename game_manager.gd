@@ -11,24 +11,12 @@ var current_score: int = 0
 var high_scores: Array[int] = []
 var game_paused_state: bool = false
 
-# Audio settings
-var master_volume: float = 1.0
-var sound_effects_volume: float = 1.0
-var music_volume: float = 1.0
-var sound_effects_enabled: bool = true
-var music_enabled: bool = true
-
-# Game settings
-var show_debug_info: bool = false
-
 # High score system
 const MAX_HIGH_SCORES = 10
 const SAVE_FILE_PATH = "user://high_scores.save"
-const SETTINGS_FILE_PATH = "user://settings.save"
 
 func _ready():
 	"""Initialize the GameManager and load saved data."""
-	load_settings()
 	load_high_scores()
 
 func _input(event):
@@ -135,70 +123,7 @@ func load_high_scores():
 				high_scores = loaded_scores
 			file.close()
 
-func save_settings():
-	"""Save game settings to file."""
-	var settings = {
-		"master_volume": master_volume,
-		"sound_effects_volume": sound_effects_volume,
-		"music_volume": music_volume,
-		"sound_effects_enabled": sound_effects_enabled,
-		"music_enabled": music_enabled,
-		"show_debug_info": show_debug_info
-	}
-
-	var file = FileAccess.open(SETTINGS_FILE_PATH, FileAccess.WRITE)
-	if file:
-		file.store_var(settings)
-		file.close()
-
-func load_settings():
-	"""Load game settings from file."""
-	if FileAccess.file_exists(SETTINGS_FILE_PATH):
-		var file = FileAccess.open(SETTINGS_FILE_PATH, FileAccess.READ)
-		if file:
-			var settings = file.get_var()
-			if settings is Dictionary:
-				master_volume = settings.get("master_volume", 1.0)
-				sound_effects_volume = settings.get("sound_effects_volume", 1.0)
-				music_volume = settings.get("music_volume", 1.0)
-				sound_effects_enabled = settings.get("sound_effects_enabled", true)
-				music_enabled = settings.get("music_enabled", true)
-				show_debug_info = settings.get("show_debug_info", false)
-			file.close()
-
-# Audio Management
-func play_sound_effect(audio_stream_player: AudioStreamPlayer, volume_scale: float = 1.0):
-	"""Play a sound effect with proper volume scaling."""
-	if sound_effects_enabled:
-		audio_stream_player.volume_db = linear_to_db(sound_effects_volume * master_volume * volume_scale)
-		audio_stream_player.play()
-
-func set_master_volume(volume: float):
-	"""Set the master volume and save settings."""
-	master_volume = clamp(volume, 0.0, 1.0)
-	save_settings()
-
-func set_sound_effects_volume(volume: float):
-	"""Set the sound effects volume and save settings."""
-	sound_effects_volume = clamp(volume, 0.0, 1.0)
-	save_settings()
-
-func set_music_volume(volume: float):
-	"""Set the music volume and save settings."""
-	music_volume = clamp(volume, 0.0, 1.0)
-	save_settings()
-
-func toggle_sound_effects():
-	"""Toggle sound effects on/off."""
-	sound_effects_enabled = !sound_effects_enabled
-	save_settings()
-
-func toggle_music():
-	"""Toggle music on/off."""
-	music_enabled = !music_enabled
-	save_settings()
-
-func toggle_debug_info():
-	"""Toggle debug info display."""
-	show_debug_info = !show_debug_info
-	save_settings()
+# Simple Audio Management
+func play_sound_effect(audio_stream_player: AudioStreamPlayer):
+	"""Play a sound effect."""
+	audio_stream_player.play()

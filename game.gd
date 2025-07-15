@@ -48,8 +48,8 @@ func _ready() -> void:
 	GameManager.game_paused.connect(_on_game_paused)
 	GameManager.game_resumed.connect(_on_game_resumed)
 	
-	# Update debug info visibility
-	debug_info.visible = GameManager.show_debug_info
+	# Debug info disabled by default
+	debug_info.visible = false
 
 @export var difficulty_curve: Curve
 var difficulty := 0.0
@@ -115,7 +115,8 @@ func _on_despawn_boundary_body_entered(body: Node2D) -> void:
 	
 	var fart := $Fart.duplicate()
 	add_child(fart)
-	GameManager.play_sound_effect(fart, 0.2)
+	fart.volume_db = linear_to_db(0.2)
+	GameManager.play_sound_effect(fart)
 	fart.finished.connect(func():
 		fart.queue_free()
 	)
