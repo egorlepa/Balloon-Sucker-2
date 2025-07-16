@@ -9,8 +9,10 @@ extends Node2D
 @onready var score_label: Label = $ScoreLabel
 
 @onready var balloon_timer: Timer = $SpawnTimer
-@onready var pause_menu: Control = $PauseMenu
 @onready var pause_button: Button = $PauseButton
+
+var pause_menu: Control = null
+var pause_menu_scene = preload("res://pause_menu.tscn")
 
 var elapsed_time := 0.0
 
@@ -41,7 +43,6 @@ func _ready() -> void:
 	_change_wind()
 	
 	# Set up pause functionality
-	pause_menu.visible = false
 	pause_button.pressed.connect(_on_pause_button_pressed)
 	
 	# Connect to GameManager signals
@@ -136,6 +137,9 @@ func _on_pause_button_pressed():
 func _on_game_paused():
 	"""Handle game paused signal - show pause menu."""
 	print("Game paused signal received!")
+	if pause_menu == null:
+		pause_menu = pause_menu_scene.instantiate()
+		get_tree().current_scene.add_child(pause_menu)
 	pause_menu.visible = true
 	print("Pause menu set to visible")
 

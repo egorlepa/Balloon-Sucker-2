@@ -23,6 +23,9 @@ func _ready():
 	
 	# Connect to GameManager signals
 	GameManager.game_resumed.connect(_on_game_resumed)
+	
+	# Ensure the pause menu fills the entire viewport
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 
 func _on_resume_pressed():
 	"""Handle resume button press - resume the game."""
