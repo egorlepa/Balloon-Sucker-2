@@ -144,9 +144,17 @@ func _on_game_paused():
 		# Make it a full-screen overlay
 		pause_menu.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		pause_menu.mouse_filter = Control.MOUSE_FILTER_STOP
+		# Ensure it appears on top of everything
+		pause_menu.z_index = 100
 	pause_menu.visible = true
 	print("Pause menu set to visible")
 
 func _on_game_resumed():
 	"""Handle game resumed signal - hide pause menu."""
 	pause_menu.visible = false
+
+func _exit_tree():
+	"""Cleanup when leaving the game scene."""
+	if pause_menu != null:
+		pause_menu.queue_free()
+		pause_menu = null

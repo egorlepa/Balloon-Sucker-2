@@ -8,6 +8,8 @@ extends Control
 @onready var restart_button: Button = $VBoxContainer/RestartButton
 @onready var main_menu_button: Button = $VBoxContainer/MainMenuButton
 
+var background_panel: Panel
+
 func _ready():
 	"""Initialize the pause menu."""
 	# Connect button signals
@@ -27,8 +29,13 @@ func _ready():
 	# Make this control fill the entire screen as an overlay
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	
-	# Add a semi-transparent background
-	modulate = Color(1, 1, 1, 0.95)
+	# Create a semi-transparent background panel
+	background_panel = Panel.new()
+	background_panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	background_panel.modulate = Color(0, 0, 0, 0.7)  # Dark semi-transparent background
+	background_panel.mouse_filter = Control.MOUSE_FILTER_STOP  # Block mouse events
+	add_child(background_panel)
+	move_child(background_panel, 0)  # Put it behind other elements
 	
 	# Center the VBoxContainer
 	if $VBoxContainer:
@@ -42,10 +49,14 @@ func _on_resume_pressed():
 
 func _on_restart_pressed():
 	"""Handle restart button press - restart the game."""
+	# Clean up the pause menu before restarting
+	queue_free()
 	GameManager.restart_game()
 
 func _on_main_menu_pressed():
 	"""Handle main menu button press - return to main menu."""
+	# Clean up the pause menu before returning
+	queue_free()
 	GameManager.return_to_main_menu()
 
 func _on_game_resumed():
