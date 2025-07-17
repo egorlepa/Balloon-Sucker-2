@@ -20,6 +20,9 @@ func _ready():
 	# Set up the display
 	pause_label.text = "Game Paused"
 	
+	# Make buttons match main menu style
+	_setup_button_styles()
+	
 	# Focus the resume button by default
 	resume_button.grab_focus()
 	
@@ -37,11 +40,17 @@ func _ready():
 	add_child(background_panel)
 	move_child(background_panel, 0)  # Put it behind other elements
 	
-	# Center the VBoxContainer
+	# Style the existing pause label to match main menu title
+	pause_label.add_theme_font_size_override("font_size", 48)
+	pause_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	
+	# Center the VBoxContainer to match main menu layout
 	if $VBoxContainer:
 		$VBoxContainer.set_anchors_preset(Control.PRESET_CENTER)
 		$VBoxContainer.set_offsets_preset(Control.PRESET_CENTER)
-		$VBoxContainer.pivot_offset = $VBoxContainer.size / 2
+		
+		# Match main menu spacing and sizing
+		$VBoxContainer.add_theme_constant_override("separation", 20)
 
 func _on_resume_pressed():
 	"""Handle resume button press - resume the game."""
@@ -63,6 +72,19 @@ func _on_game_resumed():
 	"""Handle game resumed signal - hide pause menu."""
 	visible = false
 
+
+func _setup_button_styles():
+	"""Set up button styles to match main menu."""
+	var buttons = [resume_button, restart_button, main_menu_button]
+	for button in buttons:
+		if button:
+			# Match main menu button sizing and spacing
+			button.custom_minimum_size = Vector2(200, 50)
+			# Connect hover effects
+			button.mouse_entered.connect(_on_button_mouse_entered.bind(button))
+			button.mouse_exited.connect(_on_button_mouse_exited.bind(button))
+			button.pressed.connect(_on_button_pressed_effect.bind(button))
+
 func _input(event):
 	"""Handle input events."""
 	if event.is_action_pressed("ui_cancel"):
@@ -73,33 +95,19 @@ func _input(event):
 		if resume_button.has_focus():
 			_on_resume_pressed()
 
-# Visual effects for buttons
-func _on_resume_button_mouse_entered():
-	"""Handle resume button hover effect."""
+# Visual effects for buttons - match main menu style
+func _on_button_mouse_entered(button: Button):
+	"""Handle button hover effects."""
 	var tween = create_tween()
-	tween.tween_property(resume_button, "modulate", Color.GREEN, 0.1)
+	tween.tween_property(button, "modulate", Color.YELLOW, 0.1)
 
-func _on_resume_button_mouse_exited():
-	"""Handle resume button hover exit effect."""
+func _on_button_mouse_exited(button: Button):
+	"""Handle button hover exit effects."""
 	var tween = create_tween()
-	tween.tween_property(resume_button, "modulate", Color.WHITE, 0.1)
+	tween.tween_property(button, "modulate", Color.WHITE, 0.1)
 
-func _on_restart_button_mouse_entered():
-	"""Handle restart button hover effect."""
+func _on_button_pressed_effect(button: Button):
+	"""Handle button press visual effects."""
 	var tween = create_tween()
-	tween.tween_property(restart_button, "modulate", Color.ORANGE, 0.1)
-
-func _on_restart_button_mouse_exited():
-	"""Handle restart button hover exit effect."""
-	var tween = create_tween()
-	tween.tween_property(restart_button, "modulate", Color.WHITE, 0.1)
-
-func _on_main_menu_button_mouse_entered():
-	"""Handle main menu button hover effect."""
-	var tween = create_tween()
-	tween.tween_property(main_menu_button, "modulate", Color.CYAN, 0.1)
-
-func _on_main_menu_button_mouse_exited():
-	"""Handle main menu button hover exit effect."""
-	var tween = create_tween()
-	tween.tween_property(main_menu_button, "modulate", Color.WHITE, 0.1) 
+	tween.tween_property(button, "scale", Vector2(0.95, 0.95), 0.05)
+	tween.tween_property(button, "scale", Vector2(1.0, 1.0), 0.05) 
