@@ -51,7 +51,7 @@ func _pop():
 	emit_signal("popped")
 	
 	$CollisionShape2D.disabled = true
-	$Pop.play()
+	GameManager.play_sound_effect($Pop)
 	$AnimatedSprite2D.play("pop")
 	
 	$Pop.finished.connect(func():

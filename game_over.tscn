@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://diu4ta5a6nvxe"]
+
+[ext_resource type="Script" path="res://game_over.gd" id="1_gameover"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1"]
+font_size = 36
+
+[node name="GameOver" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_gameover")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -150.0
+offset_right = 150.0
+offset_bottom = 150.0
+theme_override_constants/separation = 20
+
+[node name="GameOverLabel" type="Label" parent="VBoxContainer"]
+text = "Game Over!"
+label_settings = SubResource("LabelSettings_1")
+horizontal_alignment = 1
+
+[node name="FinalScoreLabel" type="Label" parent="VBoxContainer"]
+text = "Final Score: 0"
+horizontal_alignment = 1
+
+[node name="HighScoreLabel" type="Label" parent="VBoxContainer"]
+text = "High Score: 0"
+horizontal_alignment = 1
+
+[node name="NewHighScoreLabel" type="Label" parent="VBoxContainer"]
+visible = false
+text = "NEW HIGH SCORE!"
+modulate = Color(1, 1, 0, 1)
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+text = "Play Again"
+
+[node name="MainMenuButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+text = "Main Menu"
