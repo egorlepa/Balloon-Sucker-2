@@ -139,7 +139,11 @@ func _on_game_paused():
 	print("Game paused signal received!")
 	if pause_menu == null:
 		pause_menu = pause_menu_scene.instantiate()
-		get_tree().current_scene.add_child(pause_menu)
+		# Add to the root viewport to ensure proper overlay
+		get_viewport().add_child(pause_menu)
+		# Make it a full-screen overlay
+		pause_menu.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		pause_menu.mouse_filter = Control.MOUSE_FILTER_STOP
 	pause_menu.visible = true
 	print("Pause menu set to visible")
 

@@ -59,14 +59,18 @@ wait_time = 5.0
 
 [node name="DebugInfo" type="Control" parent="."]
 z_index = 10
+layout_mode = 3
+anchors_preset = 0
 
 [node name="SpeedLabel" type="Label" parent="DebugInfo"]
+layout_mode = 0
 offset_right = 57.0
 offset_bottom = 23.0
 text = "sample"
 label_settings = SubResource("LabelSettings_ryrav")
 
 [node name="SpawnIntervalLabel" type="Label" parent="DebugInfo"]
+layout_mode = 0
 offset_top = 23.0
 offset_right = 57.0
 offset_bottom = 46.0
@@ -74,6 +78,7 @@ text = "sample"
 label_settings = SubResource("LabelSettings_ryrav")
 
 [node name="DifficultyLabel" type="Label" parent="DebugInfo"]
+layout_mode = 0
 offset_top = 46.0
 offset_right = 57.0
 offset_bottom = 69.0
@@ -117,7 +122,6 @@ text = "0"
 label_settings = SubResource("LabelSettings_7jktm")
 horizontal_alignment = 2
 vertical_alignment = 1
-
 
 [node name="PauseButton" type="Button" parent="."]
 z_index = 10

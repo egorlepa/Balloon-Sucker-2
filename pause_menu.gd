@@ -24,8 +24,17 @@ func _ready():
 	# Connect to GameManager signals
 	GameManager.game_resumed.connect(_on_game_resumed)
 	
-	# Ensure the pause menu fills the entire viewport
+	# Make this control fill the entire screen as an overlay
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	
+	# Add a semi-transparent background
+	modulate = Color(1, 1, 1, 0.95)
+	
+	# Center the VBoxContainer
+	if $VBoxContainer:
+		$VBoxContainer.set_anchors_preset(Control.PRESET_CENTER)
+		$VBoxContainer.set_offsets_preset(Control.PRESET_CENTER)
+		$VBoxContainer.pivot_offset = $VBoxContainer.size / 2
 
 func _on_resume_pressed():
 	"""Handle resume button press - resume the game."""
