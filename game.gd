@@ -3,11 +3,17 @@ extends Node2D
 @onready var speed_label: Label = $DebugInfo/SpeedLabel
 @onready var spawn_interval_label: Label = $DebugInfo/SpawnIntervalLabel
 @onready var difficulty_label: Label = $DebugInfo/DifficultyLabel
+@onready var debug_info: Control = $DebugInfo
 
 @onready var health_label: Label = $Health/Label
 @onready var score_label: Label = $ScoreLabel
 
 @onready var balloon_timer: Timer = $SpawnTimer
+@onready var pause_button: Button = $PauseButton
+
+var pause_menu: Control = null
+var pause_menu_scene = preload("res://pause_menu.tscn")
+
 var elapsed_time := 0.0
 
 var min_interval :=  0.1
@@ -35,6 +41,16 @@ func _ready() -> void:
 	balloon_timer.start(spawn_interval)
 	_spawn_balloon_batch()
 	_change_wind()
+	
+	# Set up pause functionality
+	pause_button.pressed.connect(_on_pause_button_pressed)
+	
+	# Connect to GameManager signals
+	GameManager.game_paused.connect(_on_game_paused)
+	GameManager.game_resumed.connect(_on_game_resumed)
+	
+	# Debug info disabled by default
+	debug_info.visible = false
 
 @export var difficulty_curve: Curve
 var difficulty := 0.0
@@ -100,11 +116,45 @@ func _on_despawn_boundary_body_entered(body: Node2D) -> void:
 	
 	var fart := $Fart.duplicate()
 	add_child(fart)
-	fart.play(0.2)
+	fart.volume_db = linear_to_db(0.2)
+	GameManager.play_sound_effect(fart)
 	fart.finished.connect(func():
 		fart.queue_free()
 	)
 	
 	body.queue_free()
 	if health == 0:
-		get_tree().paused = true
+		# Game over - pass final score to GameManager
+		GameManager.set_game_over(score)
+
+# Pause menu functions
+func _on_pause_button_pressed():
+	"""Handle pause button press."""
+	print("Pause button pressed!")
+	GameManager.pause_game()
+	print("GameManager.pause_game() called")
+
+func _on_game_paused():
+	"""Handle game paused signal - show pause menu."""
+	print("Game paused signal received!")
+	if pause_menu == null:
+		pause_menu = pause_menu_scene.instantiate()
+		# Add to the root viewport to ensure proper overlay
+		get_viewport().add_child(pause_menu)
+		# Make it a full-screen overlay
+		pause_menu.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		pause_menu.mouse_filter = Control.MOUSE_FILTER_STOP
+		# Ensure it appears on top of everything
+		pause_menu.z_index = 100
+	pause_menu.visible = true
+	print("Pause menu set to visible")
+
+func _on_game_resumed():
+	"""Handle game resumed signal - hide pause menu."""
+	pause_menu.visible = false
+
+func _exit_tree():
+	"""Cleanup when leaving the game scene."""
+	if pause_menu != null:
+		pause_menu.queue_free()
+		pause_menu = null

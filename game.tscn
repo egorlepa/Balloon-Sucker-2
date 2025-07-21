@@ -57,16 +57,20 @@ shape = SubResource("RectangleShape2D_fc0e3")
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 5.0
 
-[node name="DebugInfo" type="Node2D" parent="."]
+[node name="DebugInfo" type="Control" parent="."]
 z_index = 10
+layout_mode = 3
+anchors_preset = 0
 
 [node name="SpeedLabel" type="Label" parent="DebugInfo"]
+layout_mode = 0
 offset_right = 57.0
 offset_bottom = 23.0
 text = "sample"
 label_settings = SubResource("LabelSettings_ryrav")
 
 [node name="SpawnIntervalLabel" type="Label" parent="DebugInfo"]
+layout_mode = 0
 offset_top = 23.0
 offset_right = 57.0
 offset_bottom = 46.0
@@ -74,6 +78,7 @@ text = "sample"
 label_settings = SubResource("LabelSettings_ryrav")
 
 [node name="DifficultyLabel" type="Label" parent="DebugInfo"]
+layout_mode = 0
 offset_top = 46.0
 offset_right = 57.0
 offset_bottom = 69.0
@@ -117,6 +122,14 @@ text = "0"
 label_settings = SubResource("LabelSettings_7jktm")
 horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="PauseButton" type="Button" parent="."]
+z_index = 10
+offset_left = 1180.0
+offset_top = 60.0
+offset_right = 1260.0
+offset_bottom = 100.0
+text = "Pause"
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="area_entered" from="DespawnBoundary" to="." method="_on_despawn_boundary_area_entered"]
