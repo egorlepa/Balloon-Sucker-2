@@ -11,7 +11,7 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.252778, 0.497824), 0.0, 0.0, 0
 point_count = 5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fc0e3"]
-size = Vector2(15, 721)
+size = Vector2(15, 929.188)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ryrav"]
 outline_size = 5
@@ -44,14 +44,14 @@ texture = ExtResource("2_e2o6t")
 physics_material_override = ExtResource("3_7jktm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallLeft"]
-position = Vector2(-7, 360.5)
+position = Vector2(-7, 412.188)
 shape = SubResource("RectangleShape2D_fc0e3")
 
 [node name="WallRight" type="StaticBody2D" parent="Walls"]
 physics_material_override = ExtResource("3_7jktm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallRight"]
-position = Vector2(1287, 360)
+position = Vector2(1287, 412.406)
 shape = SubResource("RectangleShape2D_fc0e3")
 
 [node name="SpawnTimer" type="Timer" parent="."]
